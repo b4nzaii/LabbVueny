@@ -1,6 +1,22 @@
 <!-- fetcha speldata med axios-->
 <!---Installera, importera axios och kontrollera att fetchen funkar-->
 <!---4d5777beba8a4d2c925016fa53d067b2 min API-->
+<!--Lägg till templates för att visa datan-->
+<template>
+  <div class="games-container">
+    <h1>Spel</h1>
+    <div v-if="loading" class="loading">Laddar spel.. Be patient :D</div>
+
+    <!--Visa spelen när datan är hämtad -->
+    <div v-else class="games-list">
+      <div v-for="game in games" :key="game.id" class="game-card">
+        <img v-if="game.background_image" :src="game.background_image">
+        <h3>{{game.name }}</h3>
+        <p>Released: {{ game.released }}</p>
+      </div>
+    </div>
+  </div>
+</template>
 <script>
 import axios from 'axios'
 
@@ -33,3 +49,8 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+/** Grund layouten sen! */
+
+</style>
