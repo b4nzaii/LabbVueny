@@ -15,7 +15,17 @@
 </template>
 <script>
 export default{
-  name: 'App'
+  name: 'App',
+  data(){
+    return{
+      SearchQuery: ''
+    }
+  },
+  methods: {
+    searchGames(){
+      console.log(this.SearchQuery)
+    }
+  }
 }
 </script>
 <style scoped>

@@ -1,9 +1,10 @@
 <template>
-  </div>
+  <aside>
+  </aside>
 </template>
 
 <script>
 export default {
-  name: 'GameCard'
+  name: 'Header'
 }
 </script>
