@@ -15,8 +15,18 @@
     <main class="flex-grow p-6">
       <h1 class="text-3xl font-bold mb-6">Spel</h1>
 
+      <!--- Lägger till dropdown för sortering -->
+      <div class="mb-3">
+        <label for="sort" class="text-lg font-semibold mr-2">Order by</label>
+        <select v-model="sortOption" @change="sortGames" class="p2 bg-gray-800 text-white border border-gray-600">
+        <option value="relevance">Relevance</option>
+        <option value="released">Release Date</option>
+        <option value="popularity">Popularity</option>
+        <option value="rating">Average rating</option>
+        </select>
+      </div>
  <!--- Speldgriden -->
- <div v-if="games.length" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+ <div v-if="games.length" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 p-4">
  <!--Rendera gamecard!!-->
  <GameCard v-for="game in games" :key="game.id" :game="game" />
  </div>
@@ -50,8 +60,3 @@ export default{
   }
 }
 </script>
-
-<style scoped>
-/** Grund layouten sen! */
-
-</style>
