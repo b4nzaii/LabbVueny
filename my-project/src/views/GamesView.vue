@@ -7,18 +7,25 @@
 <!-- Axios Test lyckat gör nu om med tailwind 2025-02-05 (sparar gamla koden utifall att..)-->
 
 <template>
-  <div class="flex bg-gray-900 min-h-screen text-white">
-  <Sidebar />
-  <main class="flex-grow p-6">
-    <h1 class="text-3xl font-bold mb-6">Spel</h1>
+ <div class="flex bg-gray-900 min-h-screen text-white">
+    <!-- Sidopanel för filter och kategorier -->
+    <Sidebar class="w-1/4 p-6 bg-gray-800" />
+
+    <!-- Huvudinnehåll med spelgriden -->
+    <main class="flex-grow p-6">
+      <h1 class="text-3xl font-bold mb-6">Spel</h1>
+
  <!--- Speldgriden -->
  <div v-if="games.length" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
- <!--Renderar gamecard-->
+ <!--Rendera gamecard!!-->
  <GameCard v-for="game in games" :key="game.id" :game="game" />
  </div>
   </main>
   </div>
 </template>
+
+<!-- Importerar sidebar, axios och gamecard-->
+
 <script>
 import Sidebar from '../components/Sidebar.vue'
 import axios from 'axios'
@@ -36,7 +43,7 @@ export default{
   },
   methods: {
     async fetchGames(){
-      const response = await axios.get(`https://api.rawg.io/api/games?key=4d5777beba8a4d2c925016fa53d067b2&page_size=10`)
+      const response = await axios.get(`https://api.rawg.io/api/games?key=4d5777beba8a4d2c925016fa53d067b2&page_size=30`)
       console.log(response.data)
       this.games = response.data.results
     }

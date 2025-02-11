@@ -49,18 +49,18 @@ header {
 
 nav {
   display: flex;
-  gap: 1em;
+  gap: 2em;
 }
 
 nav a {
   color: white;
-  font-size: 25px;
+  font-size: 30px;
   text-decoration: none;
   font-weight: bold;
 }
 
 nav a:hover {
-  color: #1279e7;
+  color: #69adf5;
   text-decoration: underline;
 }
 
