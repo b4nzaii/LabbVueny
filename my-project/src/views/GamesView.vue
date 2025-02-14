@@ -28,14 +28,14 @@
  <!--- Speldgriden -->
  <div v-if="games.length" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 p-4">
  <!--Rendera gamecard!!-->
- <GameCard v-for="game in games" :key="game.id" :game="game" />
+ <GameCard v-for="game in sortedGames" :key="game.id" :game="game" />
  </div>
   </main>
   </div>
 </template>
 
 <!-- Importerar sidebar, axios och gamecard-->
-
+<!-- Uppdatera med sorteringsfunktion för sortoptions-->
 <script>
 import Sidebar from '../components/Sidebar.vue'
 import axios from 'axios'
@@ -45,11 +45,28 @@ export default{
   components: {Sidebar, GameCard},
   data(){
     return{
-      games: []
+      games: [],
+      sortOption: 'relevance',
     }
   },
   async created(){
     await this.fetchGames()
+  },
+  computed: {
+    sortedGames(){
+      let sorted = [...this.games];
+
+      if (this.sortOption ==='released'){
+        return sorted.sort((a, b) => new Date(b.released) - new Date(a.released))
+      }
+      if (this.sortOption === "popularity") {
+        return sorted.sort((a, b) => b.added - a.added);
+      }
+      if (this.sortOption === "rating") {
+        return sorted.sort((a, b) => b.rating - a.rating);
+      }
+      return sorted;
+    }
   },
   methods: {
     async fetchGames(){
@@ -60,3 +77,20 @@ export default{
   }
 }
 </script>
+<style scoped>
+select{
+  background-color: #1d2631;
+  color: white;
+  border: 2px solid #4b5563;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+select:hover{
+  background-color: #364044
+}
+select:focus{
+  outline: none;
+  border-color: rgb(255, 255, 255);
+}
+</style>
