@@ -1,18 +1,17 @@
 <template>
-  <aside class="w-1/6 min-h-screen bg-gray-800 p-6 text-white">
-    <button @click="resetGenre" class="reset-btn bg-red-600 text-white hover:bg-red-700">
+  <aside>
+    <button @click="resetGenre">
      ❌ Reset Filter
     </button>
 
 
-    <h2 class="text-xl font-bold mb-4">Filter</h2>
 
-    <!-- 📌 Tidsfilter -->
+    <!-- Tidsfilter -->
     <nav class="space-y-3">
-      <button @click="$emit('filter-games', 'new-releases')" class="sidebar-btn">🆕 New Releases</button>
+      <button @click="$emit('filter-games', 'new-releases')" class="sidebar-btn"> New Releases</button>
     </nav>
 
-    <!-- 🎮 Genre-filter -->
+    <!-- Genre-filter -->
     <h3 class="text-lg font-semibold mt-6">Genres</h3>
     <ul v-if="genres.length" class="space-y-2">
       <li v-for="genre in genres" :key="genre.id">
@@ -79,7 +78,7 @@ export default {
 .reset-btn{
   font-size:1.5rem;
   padding: 5px;
-  width:100%;
+  width:50%;
   border-radius: 12px;
   font-weight:bold;
 }

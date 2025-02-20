@@ -2,51 +2,37 @@
 <!---Installera, importera axios och kontrollera att fetchen funkar-->
 <!---4d5777beba8a4d2c925016fa53d067b2 min API-->
 <!--Lägg till templates för att visa datan-->
-<!-- Axios Test lyckat gör nu om med tailwind (sparar gamla koden utifall att..)-->
+<!-- Axios Test lyckat-->
 <!---Prettier formation!-->
-
 <template>
-  <div
-    class="flex flex-col lg:flex-row bg-gray-900 min-h-screen text-white w-full"
-  >
-    <!-- Vänster sidomeny -->
-    <Sidebar
-      class="hidden lg:block w-1/6 p-6 bg-gray-800"
-      @filter-genre="filterByGenre"
-      @filter-games="filterGames"
-    />
-    <!-- Huvudinnehåll -->
-    <div class="flex flex-col lg:flex-row flex-grow w-full lg:w-5/6">
-      <main class="w-full lg:w-4/5 p-5">
-        <h1 class="text-3xl font-bold mb-6 text-center lg:text-left">Games</h1>
+  <div class="container">
+    <!-- Sidebar -->
+    <Sidebar class="sidebar" @filter-genre="filterByGenre" @filter-games="filterGames" />
 
-        <SearchBar @update-search="searchQuery = $event"/>
+    <!-- Main content -->
+    <main class="content">
+      <h1 class="title">Games</h1>
+      <SearchBar @update-search="searchQuery = $event"/>
 
-        <!-- Sortering -->
-        <div class="mb-3 text-center lg:text-left">
-          <label class="text-lg font-semibold mr-2">Order by:</label>
-          <select
-            v-model="sortOption"
-            class="p-2 bg-gray-800 text-white border border-gray-600 rounded"
-          >
-            <option value="relevance">Relevance</option>
-            <option value="released">Release Date</option>
-            <option value="popularity">Popularity</option>
-            <option value="rating">Average Rating</option>
-          </select>
-        </div>
+      <!-- Sortering -->
+      <div class="sort-container">
+        <label class="sort-label">Order by:</label>
+        <select v-model="sortOption" class="sort-select">
+          <option value="relevance">Relevance</option>
+          <option value="released">Release Date</option>
+          <option value="popularity">Popularity</option>
+          <option value="rating">Average Rating</option>
+        </select>
+      </div>
 
-        <!-- Spelgriden -->
-        <div
-          v-if="sortedGames.length"
-          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6 p-4"
-        >
-          <GameCard v-for="game in sortedGames" :key="game.id" :game="game" />
-        </div>
-      </main>
-    </div>
+      <!-- Spelgriden -->
+      <div v-if="sortedGames.length" class="game-grid">
+        <GameCard v-for="game in sortedGames" :key="game.id" :game="game" />
+      </div>
+    </main>
   </div>
 </template>
+
 
 <script>
 import Sidebar from "../components/Sidebar.vue";
@@ -73,6 +59,7 @@ export default {
 
   computed: {
     sortedGames() {
+      // Kopiera antingen filteredGames (om några filter applicerats) eller games-arrayen
       let sorted = this.filteredGames.length ? [...this.filteredGames] : [...this.games];
 
       //  Filtrera baserat på sökning
@@ -81,8 +68,7 @@ export default {
           game.name.toLowerCase().includes(this.searchQuery.toLowerCase())
         );
       }
-
-      //  Sorteringslogik
+      // Beroende på vilket sorteringsalternativ som är valt, sorteras arrayen:
       if (this.sortOption === "released") {
         return sorted.sort((a, b) => new Date(b.released) - new Date(a.released));
       }
@@ -92,6 +78,7 @@ export default {
       if (this.sortOption === "rating") {
         return sorted.sort((a, b) => b.rating - a.rating);
       }
+      // Om inget specifikt sorteringsalternativ valts, returneras den filtrerade listan som den är
       return sorted;
     },
   },
@@ -136,13 +123,15 @@ export default {
     },
 
     async filterGames(filter) {
-      let today = new Date().toISOString().split("T")[0];
-      let last30Days = new Date(new Date().setDate(new Date().getDate() - 30))
+      let today = new Date().toISOString().split("T")[0]; // här hämtar jag dagens datum i formatet 'YYYY-MM-DD'
+      let last30Days = new Date(new Date().setDate(new Date().getDate() - 30)) // Beräknar datumet för 30 dagar sedan i sammma format
         .toISOString()
         .split("T")[0];
 
       let url = `https://api.rawg.io/api/games?key=4d5777beba8a4d2c925016fa53d067b2&page_size=100`;
-
+      // Om filtret är "new-releases" eller "last-30-days" läggs parametrar till URL:en
+      // Dessa parametrar begränsar resultaten till spel som släppts mellan last 30 Days och idag,
+      // och sorterar dem med nyaste släppta först
       if (filter === "new-releases") {
         url += `&dates=${last30Days},${today}&ordering=-released`;
       } else if (filter === "last-30-days") {
@@ -158,23 +147,76 @@ export default {
 </script>
 
 <style scoped>
-.bg-gray-900 {
-  width: 100vw;
+.container {
   display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #1a202c;
+  color: white;
 }
-select {
+
+.sidebar {
+  width: 250px;
+  min-height: 100vh;
+  background-color: #2d3748;
+  padding: 20px;
+  flex-shrink: 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow-y: auto;
+}
+
+
+.content {
+  flex-grow: 1;
+  padding: 20px;
+  margin-left: 250px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sort-container {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.sort-label {
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.sort-select {
+  padding: 10px;
+  border-radius: 5px;
   background-color: #2d3748;
   color: white;
-  border: 2px solid #4d5769;
-  padding: 6px;
-  border-radius: 20px;
+  border: 1px solid #4d5769;
   cursor: pointer;
+  transition: background 0.2s ease-in-out;
 }
-select:hover {
-  background-color: #4a5568;
+
+.sort-select:hover {
+  background-color: #57687d;
 }
-select:focus {
-  outline: none;
-  border-color: #63b3ed;
+
+/* skapar en responsiv grid med auto-fill */
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 10px;
+  width: 100%;
 }
 </style>

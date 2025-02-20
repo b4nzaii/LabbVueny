@@ -4,10 +4,6 @@
       <router-link to="/games">Games</router-link>
       <router-link to="/about">About</router-link>
     </nav>
-    <div class="search-bar">
-      <input v-model="SearchQuery" type="text" placeholder="Sök efter spel">
-      <button @click="searchGames">Search</button>
-    </div>
   </header>
   <main>
 <router-view />

@@ -23,22 +23,31 @@ export default {
 <style scoped>
 /* Enkel styling */
 .game-card {
-  border: 4px solid #c2bfbf;
+  max-width: 250px;
+  width: 100%;
+  border: 1px solid #4a5568;
   padding: 10px;
   margin: 10px;
-  width: 200px;
   text-align: center;
+  background-color: #2d3748;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.game-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 .game-card img {
   width: 100%;
   height: auto;
-  max-height: 150px;
   object-fit: cover;
 }
-
-.game-card a {
-  text-decoration: none;
-  color: inherit;
+.game-card h3,
+.game-card p {
+  color: #FFFFFF;
+  font-size: 1.25rem;
 }
+
+
 </style>
