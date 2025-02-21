@@ -1,24 +1,24 @@
 <template>
-  <aside>
-    <button @click="resetGenre">
-     ❌ Reset Filter
+  <aside class="sidebar">
+    <button @click="resetGenre" class="reset-btn">
+      ❌ Reset Filter
     </button>
 
-
-
     <!-- Tidsfilter -->
-    <nav class="space-y-3">
-      <button @click="$emit('filter-games', 'new-releases')" class="sidebar-btn"> New Releases</button>
+    <nav class="time-filter">
+      <button @click="$emit('filter-games', 'new-releases')" class="sidebar-btn">
+        New Releases
+      </button>
     </nav>
 
     <!-- Genre-filter -->
-    <h3 class="text-lg font-semibold mt-6">Genres</h3>
+    <h3 class="sidebar-heading">Genres</h3>
     <ul v-if="genres.length" class="space-y-2">
       <li v-for="genre in genres" :key="genre.id">
         <button
           @click="filterByGenre(genre.id)"
           class="sidebar-btn"
-          :class="{ 'bg-gray-700': selectedGenre === genre.id }">
+          :class="{ 'active-btn': selectedGenre === genre.id }">
           {{ genre.name }}
         </button>
       </li>
@@ -66,6 +66,8 @@ export default {
   font-size: 1rem;
   background-color: transparent;
   transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
 .sidebar-btn:hover {
@@ -76,10 +78,35 @@ export default {
   background-color: #2d3748;
 }
 .reset-btn{
-  font-size:1.5rem;
-  padding: 5px;
-  width:50%;
-  border-radius: 12px;
-  font-weight:bold;
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
 }
+.sidebar{
+  background-color: #2b3444;
+  color: white;
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0, 0.2);
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.time-filter{
+  margin-bottom: 25px;
+}
+.sidebar-heading{
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  border-bottom: 2px solid rgba(255,255,255, 0.25);
+  padding-bottom: 5px;
+}
+
 </style>

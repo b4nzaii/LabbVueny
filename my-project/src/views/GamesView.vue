@@ -18,8 +18,6 @@
       <div class="sort-container">
         <label class="sort-label">Order by:</label>
         <select v-model="sortOption" class="sort-select">
-          <option value="relevance">Relevance</option>
-          <option value="released">Release Date</option>
           <option value="popularity">Popularity</option>
           <option value="rating">Average Rating</option>
         </select>
@@ -47,7 +45,7 @@ export default {
     return {
       games: [],
       filteredGames: [],
-      sortOption: "relevance",
+      sortOption: "popularity",
       selectedGenre: null,
       searchQuery:""
     };
@@ -69,9 +67,6 @@ export default {
         );
       }
       // Beroende på vilket sorteringsalternativ som är valt, sorteras arrayen:
-      if (this.sortOption === "released") {
-        return sorted.sort((a, b) => new Date(b.released) - new Date(a.released));
-      }
       if (this.sortOption === "popularity") {
         return sorted.sort((a, b) => b.added - a.added);
       }
