@@ -156,15 +156,15 @@ export default {
 }
 
 .sidebar {
+  position: fixed;
+  top: 60px;
+  left: 0;
   width: 250px;
-  min-height: 100vh;
   background-color: #2d3748;
   padding: 20px;
-  flex-shrink: 0;
-  position: fixed;
-  left: 0;
-  top: 0;
   overflow-y: auto;
+  z-index: 999;
+  height: 100vh;
 }
 
 
@@ -218,5 +218,38 @@ export default {
   gap: 20px;
   padding: 10px;
   width: 100%;
+}
+
+/**Media query */
+@media (max-width: 768px){
+  .container{
+    flex-direction:column;
+  }
+  .sidebar{
+    position: static;
+    width: 100%;
+    min-height: auto;
+    padding: 10px;
+  }
+  .content{
+    margin-left:0;
+    padding: 10px;
+  }
+  .title{
+    font-size: 24px;
+  }
+  .game-grid{
+    grid-template-columns: (repeat(auto-fill, minmax(150px, 1fr)));
+    gap: 15px;
+    padding: 6px;
+  }
+}
+@media (min-width: 769px) and (max-width: 1024px){
+  .title{
+    font-size: 26px;
+  }
+  .game-grid{
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr))
+  }
 }
 </style>

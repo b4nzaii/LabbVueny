@@ -136,22 +136,26 @@ export default{
   font-size: 3rem;
   font-weight: bold;
 }
-.game-content{
-  width: 100%;
+.game-content {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1400px;
+  width: 100%;
   padding: 20px;
   margin: 0 auto;
-  max-width: 100%;
+  gap: 20px;
 }
+
 .game-info{
-  flex: 2;
+  flex: 3;
   padding-right: 20px;
   min-width: 0;
 }
 .game-description{
   color: white;
   line-height: 1.6;
+  overflow-wrap: break-word;
 }
 .game-meta{
   display:flex;
@@ -191,8 +195,12 @@ export default{
 }
 .game-sidebar {
   flex: 1;
-  min-width: 280px;
-  max-width: 350px;
+  min-width: 350px;
+  max-width: 400px;
+  background: #2a3444;
+  padding:20px;
+  border-radius: 8px;
+  align-self: flex-start;
 }
 .game-details-box{
   margin-bottom: 20px;

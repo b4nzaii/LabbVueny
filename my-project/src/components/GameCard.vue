@@ -6,9 +6,6 @@
       <p>{{ game.released }}</p>
     </router-link>
   </div>
-  <div v-else>
-    ❌ Spel saknas
-  </div>
 </template>
 
 <script>

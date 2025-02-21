@@ -35,12 +35,17 @@ export default{
 }
 
 header {
-  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
   background-color: black;
   padding: 15px 5px;
-  display: flex;
-  justify-content: space-between;
+  display:flex;
+  justify-content: flex-start;
   align-items: center;
+  z-index: 1000;
 }
 
 nav {
@@ -61,6 +66,7 @@ nav a:hover {
 }
 
 main {
-  width: 80%;
+  width: 100%;
+  margin-top: 60px;
 }
 </style>
