@@ -18,7 +18,6 @@
         <!-- Plattformar & Genrer ska vara här -->
         <div class="game-meta">
 
-          <!-- Om spelet har plattformar/genres itereras listan och visar genre samt plattform -->
           <div v-if="game.platforms">
             <strong>Platforms:</strong>
             <span v-for="platform in game.platforms" :key="platform.platform.id">
@@ -42,8 +41,7 @@
               v-for="rating in game.ratings"
               :key="rating.id"
               class="rating-badge"
-              :class="getRatingColor(rating.title)"
-            >
+              :class="getRatingColor(rating.title)">
               {{ rating.title }} ({{ rating.count }})
             </span>
           </div>
@@ -62,8 +60,8 @@
           <h3>Where to Buy</h3>
           <ul>
             <li v-for="store in game.stores" :key="store.store.id">
-              <a :href="store.url" target="_blank" class="store-link">
-                {{ store.store.name }}
+              <a :href="getStoreUrl(store)" target="_blank" class="store-link">
+                 {{store.store.name }}
               </a>
             </li>
           </ul>
@@ -78,61 +76,70 @@
 
 <script>
 import axios from "axios";
-
-export default{
-  data(){
-    return{
+export default {
+  data() {
+    return {
       game: null
     };
   },
-  async created(){
+  async created() {
     const gameId = this.$route.params.id;
-    const response = await axios.get(`https://api.rawg.io/api/games/${gameId}?key=4d5777beba8a4d2c925016fa53d067b2`)
-    this.game = response.data
+    const response = await axios.get(
+      `https://api.rawg.io/api/games/${gameId}?key=4d5777beba8a4d2c925016fa53d067b2`
+    );
+    this.game = response.data;
   },
-  //methods för att få fram och returnera färger för ratings
-  methods : {
-    getRatingColor(title){
+  methods: {
+    getRatingColor(title) {
       const colors = {
         exceptional: 'green',
         recommended: 'blue',
         meh: 'yellow',
         skip: 'red'
       };
-      return colors[title.toLowerCase()]
+      return colors[title.toLowerCase()];
+    },
+    // Lägger till metoden getStoreUrl för att fånga länkarna.. blablabla
+    // kontrollerar först om "store.url" finns och returnerar den.
+    // Om inte så checkar vi om store.store.domain" finns och konstruerar en URL
+    // Om inget finns, returneras fallback "#".
+    getStoreUrl(store) {
+      if (store.url) return store.url;
+      if (store.store && store.store.domain) return `https://${store.store.domain}`; // Om domän finns, bygg URL.
+      return "#"; // Fallback return om inget hittas.
     }
   }
-}
+};
 </script>
-<style scoped>
 
-.game-detail-container{
+<style scoped>
+.game-detail-container {
   background-color: #181e29;
-  color:white;
+  color: white;
   min-height: 100vh;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  display:flex;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
   flex-direction: column;
-  align-items:center;
+  align-items: center;
   width: 100%;
   overflow-x: hidden;
 }
-.game-header{
+.game-header {
   position: relative;
   width: 60%;
   height: 350px;
   background-size: cover;
   background-position: center;
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
   justify-content: center;
 }
-.overlay{
-  background: rgba(0,0,0,0.6);
+.overlay {
+  background: rgba(0, 0, 0, 0.6);
   padding: 20px;
   border-radius: 8px;
 }
-.game-title{
+.game-title {
   font-size: 3rem;
   font-weight: bold;
 }
@@ -146,51 +153,50 @@ export default{
   margin: 0 auto;
   gap: 20px;
 }
-
-.game-info{
+.game-info {
   flex: 3;
   padding-right: 20px;
   min-width: 0;
 }
-.game-description{
+.game-description {
   color: white;
   line-height: 1.6;
   overflow-wrap: break-word;
 }
-.game-meta{
-  display:flex;
+.game-meta {
+  display: flex;
   gap: 20px;
   margin-top: 10px;
 }
-.game-meta strong{
-  display:block;
+.game-meta strong {
+  display: block;
   margin-bottom: 5px;
 }
-.game-ratings{
+.game-ratings {
   margin-top: 20px;
 }
-.rating-container{
-  display:flex;
+.rating-container {
+  display: flex;
   gap: 10px;
 }
-.rating-badge{
+.rating-badge {
   padding: 5px 10px;
   border-radius: 5px;
   font-weight: bold;
 }
-.green{
-  background-color: green
+.green {
+  background-color: green;
 }
-.blue{
+.blue {
   background-color: blue;
 }
-.yellow{
+.yellow {
   background-color: yellow;
 }
-.red{
+.red {
   background-color: red;
 }
-.gray{
+.gray {
   background-color: gray;
 }
 .game-sidebar {
@@ -198,21 +204,21 @@ export default{
   min-width: 350px;
   max-width: 400px;
   background: #2a3444;
-  padding:20px;
+  padding: 20px;
   border-radius: 8px;
   align-self: flex-start;
 }
-.game-details-box{
+.game-details-box {
   margin-bottom: 20px;
 }
 .game-store ul {
   list-style: none;
   padding: 0;
 }
-.store-link{
-  display:block;
+.store-link {
+  display: block;
   background: #3285d3;
-  color:white;
+  color: white;
   text-align: center;
   padding: 10px;
   margin-top: 5px;
@@ -220,63 +226,18 @@ export default{
   text-decoration: none;
   transition: background 0.3s;
 }
-.store-link:hover{
-  background: #2c6fb6
+.store-link:hover {
+  background: #2c6fb6;
 }
-.back-link{
-  display:block;
-  text-align:center;
+.back-link {
+  display: block;
+  text-align: center;
   margin-top: 20px;
   color: #63b3ed;
   text-decoration: none;
   font-size: 1.2rem;
 }
-.back-link:hover{
+.back-link:hover {
   text-decoration: underline;
 }
 </style>
-
-
-
-
-
-
-
-
-
-
-<!--
-<template>
-  <div>
-    <h1>{{ game.name }}</h1>
-    <img v-if="game.background_image" :src="game.background_image">
-    <p>{{ game.description }}</p>
-    <p><strong>Released:</strong> {{ game.released }}</p>
-    <router-link to="/games">Gå tillbaka</router-link>
-  </div>
-</template>
-
-<script>
-
-import axios from 'axios'
-
-export default {
-  name: 'GameDetailView',
-  data(){
-    return{
-      game: {} // Lagrar spelets detaljer
-    }
-  },
-  async created(){
-    const gameId = this.$route.params.id // Hämtar spelets ID från URL
-    console.log(gameId)
-    const response = await axios.get(`https://api.rawg.io/api/games/${gameId}?key=4d5777beba8a4d2c925016fa53d067b2`)
-    this.game = response.data
-    }
-}
-</script>
-<style scoped>
-
-
-</style>
--->
