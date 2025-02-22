@@ -99,7 +99,7 @@ export default {
       };
       return colors[title.toLowerCase()];
     },
-    // Lägger till metoden getStoreUrl för att fånga länkarna.. blablabla
+    // Lägger till metoden getStoreUrl för att fånga länkarna..
     // kontrollerar först om "store.url" finns och returnerar den.
     // Om inte så checkar vi om store.store.domain" finns och konstruerar en URL
     // Om inget finns, returneras fallback "#".
