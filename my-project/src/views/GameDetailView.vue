@@ -191,7 +191,7 @@ export default {
   background-color: blue;
 }
 .yellow {
-  background-color: yellow;
+  background-color: #b89708;
 }
 .red {
   background-color: red;
