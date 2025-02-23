@@ -240,4 +240,31 @@ export default {
 .back-link:hover {
   text-decoration: underline;
 }
+@media (max-width: 768px) {
+  /* Gör headern bredare och lite kortare hehe */
+  .game-header {
+    width: 100%;
+    height: 250px;
+  }
+  .game-title {
+    font-size: 2rem;
+  }
+  /*måste ändra innehållet från radlayout till kolumn */
+  .game-content {
+    flex-direction: column;
+    padding: 10px;
+  }
+  .game-info {
+    padding-right: 0;
+  }
+  /* Gör sidobaren fullbredd och placerar den under game-info */
+  .game-sidebar {
+    min-width: 100%;
+    max-width: 100%;
+    margin-top: 20px;
+  }
+  .overlay {
+    padding: 10px;
+  }
+}
 </style>
