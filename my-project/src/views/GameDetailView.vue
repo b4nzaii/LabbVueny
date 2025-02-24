@@ -15,20 +15,15 @@
     <!-- Spelets beskrivning -->
         <p class="game-description">{{ game.description_raw }}</p>
 
-        <!-- Plattformar & Genrer ska vara här -->
-        <div class="game-meta">
-
+        <!-- Plattformar & Genrer ska vara här
+        Korrigerat denna del av koden då det ej var mellanrum i platforms och genres infon
+        -->
+         <div class="game-meta">
           <div v-if="game.platforms">
-            <strong>Platforms:</strong>
-            <span v-for="platform in game.platforms" :key="platform.platform.id">
-              {{ platform.platform.name }}
-            </span>
+            <strong>Platforms: </strong>{{ game.platforms.map(p => p.platform.name).join(", ") }}
           </div>
           <div v-if="game.genres">
-            <strong>Genres:</strong>
-            <span v-for="genre in game.genres" :key="genre.id">
-              {{ genre.name }}
-            </span>
+            <strong>Genres:</strong> {{ game.genres.map(g => g.name).join(", ") }}
           </div>
         </div>
 
