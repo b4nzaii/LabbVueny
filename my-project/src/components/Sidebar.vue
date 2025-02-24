@@ -1,8 +1,6 @@
 <template>
   <aside class="sidebar">
-    <button @click="resetGenre" class="reset-btn">
-      ❌ Reset Filter
-    </button>
+    <button @click="resetGenre" class="reset-btn">❌ Reset Filter</button>
 
     <!-- Tidsfilter -->
     <nav class="time-filter">
@@ -18,12 +16,12 @@
         <button
           @click="filterByGenre(genre.id)"
           class="sidebar-btn"
-          :class="{ 'active-btn': selectedGenre === genre.id }">
+          :class="{ 'active-btn': selectedGenre === genre.id }"
+        >
           {{ genre.name }}
         </button>
       </li>
     </ul>
-
   </aside>
 </template>
 
@@ -35,11 +33,13 @@ export default {
   data() {
     return {
       genres: [],
-      selectedGenre: null
+      selectedGenre: null,
     };
   },
   async created() {
-    const response = await axios.get(`https://api.rawg.io/api/genres?key=4d5777beba8a4d2c925016fa53d067b2`);
+    const response = await axios.get(
+      `https://api.rawg.io/api/genres?key=4d5777beba8a4d2c925016fa53d067b2`
+    );
     this.genres = response.data.results || [];
   },
   methods: {
@@ -50,8 +50,8 @@ export default {
     resetGenre() {
       this.selectedGenre = null;
       this.$emit('filter-genre', null);
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -77,7 +77,7 @@ export default {
 .sidebar-btn.active {
   background-color: #2d3748;
 }
-.reset-btn{
+.reset-btn {
   background-color: red;
   color: white;
   border: none;
@@ -89,24 +89,23 @@ export default {
   margin-bottom: 20px;
   transition: background-color 0.3s ease;
 }
-.sidebar{
+.sidebar {
   background-color: #2b3444;
   color: white;
   padding: 20px;
   border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0,0,0, 0.2);
-  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
-.time-filter{
+.time-filter {
   margin-bottom: 25px;
 }
-.sidebar-heading{
+.sidebar-heading {
   font-size: 1.4rem;
   font-weight: 600;
   margin-top: 15px;
   margin-bottom: 5px;
-  border-bottom: 2px solid rgba(255,255,255, 0.25);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.25);
   padding-bottom: 5px;
 }
-
 </style>

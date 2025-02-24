@@ -1,7 +1,7 @@
 <template>
   <div class="game-card" v-if="game && game.id">
     <router-link :to="`/games/${game.id}`">
-      <img v-if="game.background_image" :src="game.background_image" loading="lazy">
+      <img v-if="game.background_image" :src="game.background_image" loading="lazy" />
       <h3>{{ game.name }}</h3>
       <p>{{ game.released }}</p>
     </router-link>
@@ -12,9 +12,9 @@
 export default {
   name: 'GameCard',
   props: {
-    game: Object
-  }
-}
+    game: Object,
+  },
+};
 </script>
 
 <style scoped>
@@ -27,7 +27,9 @@ export default {
   margin: 10px;
   text-align: center;
   background-color: #2d3748;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transition:
+    transform 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
 }
 
 .game-card:hover {
@@ -42,11 +44,11 @@ export default {
 }
 .game-card h3,
 .game-card p {
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 1.25rem;
 }
 
-.game-card a{
+.game-card a {
   text-decoration: none;
   color: inherit;
 }

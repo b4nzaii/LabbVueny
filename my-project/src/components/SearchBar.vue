@@ -13,24 +13,24 @@
 <script>
 export default {
   data() {
-    return { searchQuery: "" };
-  }
+    return { searchQuery: '' };
+  },
 };
 </script>
 <style scoped>
-.search-container{
+.search-container {
   margin: 16px;
   display: flex;
   justify-content: center;
 }
-.search-container input{
+.search-container input {
   padding: 10px 15px;
   font-size: 16px;
   border: 3px solid #978e8e;
   border-radius: 8px;
   outline: none;
 }
-.search-container input:focus{
+.search-container input:focus {
   border-color: lightblue;
 }
 </style>

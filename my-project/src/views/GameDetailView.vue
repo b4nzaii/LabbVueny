@@ -1,9 +1,9 @@
 <template>
-<!-- Kontrollerar att 'game' data finns innan vi renderar sidan -->
-<div v-if="game" class="game-detail-container">
+  <!-- Kontrollerar att 'game' data finns innan vi renderar sidan -->
+  <div v-if="game" class="game-detail-container">
     <!-- Bakgrundsbild -->
-     <div class="game-header" :style="{ backgroundImage: `url(${game.background_image})` }">
-    <!-- Overlay för att göra texten mer läsbar över bakgrunden AA och allt det där 😂 -->
+    <div class="game-header" :style="{ backgroundImage: `url(${game.background_image})` }">
+      <!-- Overlay för att göra texten mer läsbar över bakgrunden AA och allt det där 😂 -->
       <div class="overlay">
         <h1 class="game-title">{{ game.name }}</h1>
       </div>
@@ -12,18 +12,18 @@
     <div class="game-content">
       <div class="game-info">
         <h2>About</h2>
-    <!-- Spelets beskrivning -->
+        <!-- Spelets beskrivning -->
         <p class="game-description">{{ game.description_raw }}</p>
 
         <!-- Plattformar & Genrer ska vara här
         Korrigerat denna del av koden då det ej var mellanrum i platforms och genres infon
         -->
-         <div class="game-meta">
+        <div class="game-meta">
           <div v-if="game.platforms">
-            <strong>Platforms: </strong>{{ game.platforms.map(p => p.platform.name).join(", ") }}
+            <strong>Platforms: </strong>{{ game.platforms.map((p) => p.platform.name).join(', ') }}
           </div>
           <div v-if="game.genres">
-            <strong>Genres:</strong> {{ game.genres.map(g => g.name).join(", ") }}
+            <strong>Genres:</strong> {{ game.genres.map((g) => g.name).join(', ') }}
           </div>
         </div>
 
@@ -31,12 +31,13 @@
         <div v-if="game.ratings" class="game-ratings">
           <h2>Ratings</h2>
           <div class="rating-container">
-        <!-- Itereras över varje rating och applicerar en dynamisk klass beroende på rating titeln-->
+            <!-- Itereras över varje rating och applicerar en dynamisk klass beroende på rating titeln-->
             <span
               v-for="rating in game.ratings"
               :key="rating.id"
               class="rating-badge"
-              :class="getRatingColor(rating.title)">
+              :class="getRatingColor(rating.title)"
+            >
               {{ rating.title }} ({{ rating.count }})
             </span>
           </div>
@@ -47,7 +48,7 @@
         <!-- Releasedatum-->
         <div class="game-details-box">
           <h3>Game Info</h3>
-          <p><strong>Released:</strong> {{ game.released || "TBA" }}</p>
+          <p><strong>Released:</strong> {{ game.released || 'TBA' }}</p>
         </div>
 
         <!-- Köp-länkar steam xbox osv -->
@@ -56,7 +57,7 @@
           <ul>
             <li v-for="store in game.stores" :key="store.store.id">
               <a :href="getStoreUrl(store)" target="_blank" class="store-link">
-                 {{store.store.name }}
+                {{ store.store.name }}
               </a>
             </li>
           </ul>
@@ -70,11 +71,11 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 export default {
   data() {
     return {
-      game: null
+      game: null,
     };
   },
   async created() {
@@ -90,7 +91,7 @@ export default {
         exceptional: 'green',
         recommended: 'blue',
         meh: 'yellow',
-        skip: 'red'
+        skip: 'red',
       };
       return colors[title.toLowerCase()];
     },
@@ -101,9 +102,9 @@ export default {
     getStoreUrl(store) {
       if (store.url) return store.url;
       if (store.store && store.store.domain) return `https://${store.store.domain}`; // Om domän finns, bygg URL.
-      return "#"; // Fallback return om inget hittas.
-    }
-  }
+      return '#'; // Fallback return om inget hittas.
+    },
+  },
 };
 </script>
 
@@ -112,7 +113,7 @@ export default {
   background-color: #181e29;
   color: white;
   min-height: 100vh;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -187,7 +188,7 @@ export default {
 }
 .yellow {
   background-color: #b89708;
-  color:White;
+  color: White;
 }
 .red {
   background-color: red;

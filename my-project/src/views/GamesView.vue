@@ -12,7 +12,7 @@
     <!-- Main content -->
     <main class="content">
       <h1 class="title">Games</h1>
-      <SearchBar @update-search="searchQuery = $event"/>
+      <SearchBar @update-search="searchQuery = $event" />
 
       <!-- Sortering -->
       <div class="sort-container">
@@ -31,12 +31,11 @@
   </div>
 </template>
 
-
 <script>
-import Sidebar from "../components/Sidebar.vue";
-import axios from "axios";
-import GameCard from "../components/GameCard.vue";
-import SearchBar from "../components/SearchBar.vue";
+import Sidebar from '../components/Sidebar.vue';
+import axios from 'axios';
+import GameCard from '../components/GameCard.vue';
+import SearchBar from '../components/SearchBar.vue';
 
 export default {
   components: { Sidebar, GameCard, SearchBar },
@@ -45,9 +44,9 @@ export default {
     return {
       games: [],
       filteredGames: [],
-      sortOption: "popularity",
+      sortOption: 'popularity',
       selectedGenre: null,
-      searchQuery:""
+      searchQuery: '',
     };
   },
 
@@ -67,17 +66,16 @@ export default {
         );
       }
       // Beroende på vilket sorteringsalternativ som är valt, sorteras arrayen:
-      if (this.sortOption === "popularity") {
+      if (this.sortOption === 'popularity') {
         return sorted.sort((a, b) => b.added - a.added);
       }
-      if (this.sortOption === "rating") {
+      if (this.sortOption === 'rating') {
         return sorted.sort((a, b) => b.rating - a.rating);
       }
       // Om inget specifikt sorteringsalternativ valts, returneras den filtrerade listan som den är
       return sorted;
     },
   },
-
 
   methods: {
     // Hämta alla spel och spara dem
@@ -102,7 +100,7 @@ export default {
         this.games = allGames;
         this.filteredGames = allGames;
       } catch (error) {
-        console.error("Fel vid hämtning av spel:", error);
+        console.error('Fel vid hämtning av spel:', error);
       }
     },
 
@@ -118,18 +116,18 @@ export default {
     },
 
     async filterGames(filter) {
-      let today = new Date().toISOString().split("T")[0]; // här hämtar jag dagens datum i formatet 'YYYY-MM-DD'
+      let today = new Date().toISOString().split('T')[0]; // här hämtar jag dagens datum i formatet 'YYYY-MM-DD'
       let last30Days = new Date(new Date().setDate(new Date().getDate() - 30)) // Beräknar datumet för 30 dagar sedan i sammma format
         .toISOString()
-        .split("T")[0];
+        .split('T')[0];
 
       let url = `https://api.rawg.io/api/games?key=4d5777beba8a4d2c925016fa53d067b2&page_size=100`;
       // Om filtret är "new-releases" eller "last-30-days" läggs parametrar till URL:en
       // Dessa parametrar begränsar resultaten till spel som släppts mellan last 30 Days och idag,
       // och sorterar dem med nyaste släppta först
-      if (filter === "new-releases") {
+      if (filter === 'new-releases') {
         url += `&dates=${last30Days},${today}&ordering=-released`;
-      } else if (filter === "last-30-days") {
+      } else if (filter === 'last-30-days') {
         url += `&dates=${last30Days},${today}&ordering=-released`;
       }
 
@@ -138,7 +136,6 @@ export default {
     },
   },
 };
-
 </script>
 
 <style scoped>
@@ -161,7 +158,6 @@ export default {
   z-index: 999;
   height: 100vh;
 }
-
 
 .content {
   flex-grow: 1;
@@ -216,35 +212,35 @@ export default {
 }
 
 /**Media query */
-@media (max-width: 768px){
-  .container{
-    flex-direction:column;
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
   }
-  .sidebar{
+  .sidebar {
     position: static;
     width: 100%;
     min-height: auto;
     padding: 10px;
   }
-  .content{
-    margin-left:0;
+  .content {
+    margin-left: 0;
     padding: 10px;
   }
-  .title{
+  .title {
     font-size: 24px;
   }
-  .game-grid{
+  .game-grid {
     grid-template-columns: (repeat(auto-fill, minmax(150px, 1fr)));
     gap: 15px;
     padding: 6px;
   }
 }
-@media (min-width: 769px) and (max-width: 1024px){
-  .title{
+@media (min-width: 769px) and (max-width: 1024px) {
+  .title {
     font-size: 26px;
   }
-  .game-grid{
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr))
+  .game-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   }
 }
 </style>
