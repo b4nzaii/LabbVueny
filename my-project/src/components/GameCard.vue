@@ -1,7 +1,7 @@
 <template>
   <div class="game-card" v-if="game && game.id">
     <router-link :to="`/games/${game.id}`">
-      <img v-if="game.background_image" :src="game.background_image">
+      <img v-if="game.background_image" :src="game.background_image" loading="lazy">
       <h3>{{ game.name }}</h3>
       <p>{{ game.released }}</p>
     </router-link>

@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import GamesView from '../views/GamesView.vue'
-import GameDetailView from '../views/GameDetailView.vue'
-import AboutView from '../views/AboutView.vue'
+// Lägger till lazy loading
+
+const GamesView = () => import('../views/GamesView.vue');
+const GameDetailView  = () => import('../views/GameDetailView.vue');
+const AboutView = () => import('../views/AboutView.vue')
 
 const routes = [
   { path: '/games', name: 'Games', component: GamesView },
