@@ -31,8 +31,8 @@ export default {
 }
 
 .game-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  text-decoration: none;
+  color: inherit;
 }
 
 .game-card img {
@@ -46,5 +46,8 @@ export default {
   font-size: 1.25rem;
 }
 
-
+.game-card a{
+  text-decoration: none;
+  color: inherit;
+}
 </style>
